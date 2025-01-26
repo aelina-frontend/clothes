@@ -14,7 +14,7 @@ class _FooterSectionState extends State<FooterSection> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return SliverToBoxAdapter(
       child: SizedBox(
         height: 400,
         child: Column(

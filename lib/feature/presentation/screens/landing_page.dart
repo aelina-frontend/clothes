@@ -40,7 +40,6 @@ class _LandingPageState extends State<LandingPage> {
           ))
               .toList() : []
         ),
-
         actions: isDesktop
             ? icons
                 .map((item) => Padding(
