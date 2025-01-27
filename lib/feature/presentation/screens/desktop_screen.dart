@@ -35,7 +35,7 @@ class DesktopScreen extends StatelessWidget {
           ),
         ),
         productsWidget(),
-       // FooterSection(),
+       FooterSection(),
       ],
     );
   }
