@@ -1,6 +1,8 @@
+
 import 'package:clothes/feature/presentation/screens/desktop_body/footer_section.dart';
 import 'package:clothes/feature/presentation/screens/desktop_body/products_widget.dart';
 import 'package:clothes/feature/presentation/widgets/about_us_widget.dart';
+import 'package:clothes/feature/presentation/widgets/button_to_order.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +24,7 @@ class DesktopScreen extends StatelessWidget {
             children: [
               mainPictureWidget(),
               _text(),
-              typeofClothesWidget(),
+              TypeOfClothes(),
               const SizedBox(
                 height: 15,
               ),
@@ -35,7 +37,8 @@ class DesktopScreen extends StatelessWidget {
           ),
         ),
         productsWidget(),
-       FooterSection(),
+        _button(),
+        FooterSection(),
       ],
     );
   }
@@ -69,6 +72,23 @@ class DesktopScreen extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _button(){
+    return SliverToBoxAdapter(
+      child:
+      Padding(
+        padding: const EdgeInsets.only(top: 15),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            buttonToOrder(
+                text: 'Show more', width: 180, onTap: () {}, isColor: true),
+          ],
+        ),
+      ),
     );
   }
 }

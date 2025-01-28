@@ -1,4 +1,7 @@
+import 'package:clothes/clothes_app/core/app_text_style.dart';
+import 'package:clothes/feature/presentation/widgets/button_to_order.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../../core/app_colors.dart';
@@ -11,107 +14,48 @@ class FooterSection extends StatefulWidget {
 }
 
 class _FooterSectionState extends State<FooterSection> {
-
-  List<IconData> icons = [Bootstrap.whatsapp, Bootstrap.instagram, Bootstrap.telegram, Icons.phone_outlined];
+  List<IconData> icons = [
+    Bootstrap.whatsapp,
+    Bootstrap.instagram,
+    Bootstrap.telegram,
+    Icons.phone_outlined
+  ];
 
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Padding(
-        padding: const EdgeInsets.only(top: 60),
+        padding: const EdgeInsets.only(
+          top: 60,
+          left: 20,
+          right: 20,
+        ),
         child: SizedBox(
-          height: 400,
+          height: 380,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             children: [
-              const Text(
-                'Давайте начнем работать вместе, сегодня!\nВы всегда можете связаться с нами',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-              const SizedBox(height: 16),
+              _text(),
+              const SizedBox(height: 10),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // _buildSocialIcon(Icons.whatsapp),
-                  // SizedBox(width: 16),
-                  _buildSocialIcon(Icons.telegram),
-                  const SizedBox(width: 16),
-                  _buildSocialIcon(Icons.photo_camera), // Замените на иконку Instagram
-                  const SizedBox(width: 16),
-                  _buildSocialIcon(Icons.phone),
-                ],
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                'Кыргызстан, Бишкек',
-                style: TextStyle(color: Colors.black54, fontSize: 14),
-              ),
-              const Text(
-                'Политика конфиденциальности',
-                style: TextStyle(color: Colors.black54, fontSize: 14),
-              ),
-              const Text(
-                '© Права защищены от копирования 2024',
-                style: TextStyle(color: Colors.black54, fontSize: 14),
-              ),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Карта сайта',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Text('ГЛАВНАЯ', style: TextStyle(color: Colors.black54)),
-                      Text('О НАС', style: TextStyle(color: Colors.black54)),
-                      Text('КАТАЛОГ', style: TextStyle(color: Colors.black54)),
-                      Text('КОНТАКТЫ', style: TextStyle(color: Colors.black54)),
-                    ],
-                  ),
+                  _location(),
+                  _mapMenu(),
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildTextField('Ваше имя'),
-                      const SizedBox(height: 8),
-                      _buildTextField('Номер телефона'),
-                      const SizedBox(height: 8),
-                      ElevatedButton(
-                        onPressed: () {
-                          // Действие при нажатии
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(24),
-                          ),
-                          padding:
-                          const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                        ),
-                        child: const Text(
-                          'Оставить заявку',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
+                      _textField('Ваше имя'),
+                      _textField("Номер телефона"),
+                      buttonToOrder(text: 'Оставить заявку', width: 220, onTap: (){}, isColor: false),
                     ],
                   ),
                 ],
               ),
-              const SizedBox(height: 32),
-              const Divider(color: AppColors.black),
-              const Text(
-                'Сайт создан: Aelina',
-                textAlign: TextAlign.center,
-                style: TextStyle(color: AppColors.black, fontSize: 14),
+              SizedBox(
+                height: 20,
               ),
+              _developer(),
             ],
           ),
         ),
@@ -119,29 +63,128 @@ class _FooterSectionState extends State<FooterSection> {
     );
   }
 
-  Widget _buildSocialIcon(IconData icon) {
-    return IconButton(
-      onPressed: () {
-        // Действие при нажатии
-      },
-      icon: Icon(icon, color: Colors.black),
-      iconSize: 32,
+  Widget _text() {
+    return Align(
+      alignment: Alignment.topLeft,
+      child: const Text(
+        'Давайте начнем работать вместе, сегодня!\nВы всегда можете связаться с нами',
+        textAlign: TextAlign.start,
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     );
   }
 
-  Widget _buildTextField(String hintText) {
-    return Container(
-      height: 30,
-      width: 200,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black26),
-        borderRadius: BorderRadius.circular(16),
+  Widget _location() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            // _buildSocialIcon(Icons.whatsapp),
+            // SizedBox(width: 16),
+            _buildSocialIcon(Icons.telegram),
+            const SizedBox(width: 16),
+            _buildSocialIcon(Icons.photo_camera),
+            // Замените на иконку Instagram
+            const SizedBox(width: 16),
+            _buildSocialIcon(Icons.phone),
+          ],
+        ),
+        const SizedBox(height: 16),
+        const Text(
+          'Кыргызстан, Бишкек',
+          style: TextStyle(color: Colors.black54, fontSize: 14),
+        ),
+        const Text(
+          'Политика конфиденциальности',
+          style: TextStyle(color: Colors.black54, fontSize: 14),
+        ),
+        const Text(
+          '© Права защищены от копирования 2024',
+          style: TextStyle(color: Colors.black54, fontSize: 14),
+        ),
+      ],
+    );
+  }
+
+  Widget _mapMenu() {
+    return const Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'КАРТА САЙТА',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 5,),
+        Text('ГЛАВНАЯ', style: AppTextStyle.s18w500),
+        Text('О НАС', style: AppTextStyle.s18w500),
+        Text('КАТАЛОГ', style: AppTextStyle.s18w500),
+        Text('КОНТАКТЫ', style: AppTextStyle.s18w500),
+      ],
+    );
+  }
+
+  Widget _buildSocialIcon(IconData icon) {
+    return CircleAvatar(
+      radius: 17,
+      backgroundColor: Colors.black,
+      child: Icon(
+        icon,
+        color: AppColors.white,
+        size: 15,
       ),
-      child: TextField(
-        decoration: InputDecoration(
-          hintText: hintText,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          border: InputBorder.none,
+    );
+    // IconButton(
+    //   onPressed: () {
+    //     // Действие при нажатии
+    //   },
+    //   icon: Icon(icon, color: Colors.black),
+    //   iconSize: 32,
+    // );
+  }
+
+  Widget _textField(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 15),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(text),
+          Container(
+            height: 50,
+            width: 220,
+            decoration: BoxDecoration(
+              color: AppColors.white,
+              border: Border.all(color: AppColors.black),
+              borderRadius: BorderRadius.circular(25),
+            ),
+            child: TextField(
+              decoration: InputDecoration(
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                border: InputBorder.none,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _developer() {
+    return Container(
+      height: 60,
+      width: double.infinity,
+      color: AppColors.black,
+      child: Center(
+        child: const Text(
+          'Сайт создан: Aelina',
+          style: TextStyle(color: AppColors.white, fontSize: 14),
         ),
       ),
     );

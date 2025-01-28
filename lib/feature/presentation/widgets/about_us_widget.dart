@@ -57,7 +57,7 @@ class AboutUsWidget extends StatelessWidget {
             ),
             SizedBox(height: 10,),
             Center(
-              child: buttonToOrder(text: 'Получить консультацию', width:  180, onTap: (){}, isColor: false),
+              child: buttonToOrder(text: 'Получить консультацию', width:  220, onTap: (){}, isColor: false),
             ),
           ],
         ),

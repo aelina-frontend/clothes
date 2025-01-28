@@ -7,7 +7,7 @@ Widget buttonToOrder({required String text, required double width, required Func
   return GestureDetector(
     onTap: onTap,
     child: Container(
-      height: 40,
+      height: 50,
       width: width,
       decoration: BoxDecoration(
           color: isColor ? AppColors.white : AppColors.black,
