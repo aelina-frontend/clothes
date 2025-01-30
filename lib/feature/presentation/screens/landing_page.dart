@@ -1,4 +1,5 @@
 import 'package:clothes/clothes_app/core/app_colors.dart';
+import 'package:clothes/feature/presentation/screens/tablet_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -80,8 +81,10 @@ class BodyContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if(isMobile || isTablet){
+    if(isMobile){
       return const MobileScreen();
+    }else if(isTablet){
+      return const TabletScreen();
     }else{
       return const DesktopScreen();
     }
