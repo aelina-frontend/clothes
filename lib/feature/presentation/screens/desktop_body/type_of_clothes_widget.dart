@@ -11,6 +11,8 @@ class TypeOfClothes extends StatefulWidget {
 }
 
 class _TypeOfClothesState extends State<TypeOfClothes> {
+
+
   List<PageController> _pageControllers = [];
 
   late Timer _timer;
@@ -56,8 +58,19 @@ class _TypeOfClothesState extends State<TypeOfClothes> {
   }
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isMobile = screenWidth < 600;
+    final isTablet = screenWidth >= 600 && screenWidth < 1200;
+
+    int crossAxisCount = isMobile ? 1 : (isTablet ? 2 : 3);
+    double childAspectRatio = isMobile ? 2.0 : (isTablet ? 2.8 : 2.5);
+    double titleFontSize = isMobile ? 20 : (isTablet ? 22 : 24);
+    double numberFontSize = isMobile ? 24 : (isTablet ? 28 : 32);
+    double itemTitleFontSize = isMobile ? 16 : (isTablet ? 17 : 18);
+    double descriptionFontSize = isMobile ? 12 : (isTablet ? 13 : 14);
+    double buttonWidth = isMobile ? 180 : (isTablet ? 200 : 220);
     return SizedBox(
-      height: 420,
+      height: isTablet ? 270 : 420,
       child: ListView.builder(
           itemCount: catalog.length,
           shrinkWrap: true,
@@ -68,16 +81,16 @@ class _TypeOfClothesState extends State<TypeOfClothes> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: 400,
-                    width: 400,
+                    height: isTablet ? 250: 400,
+                    width: isTablet ? 250 : 400,
                     child: PageView.builder(
                         itemCount: catalog[index].images.length,
                         controller: _pageControllers[index],
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, pageIndex) {
                           return Container(
-                            height: 400,
-                            width: 400,
+                            height: isTablet ? 250 : 400,
+                            width: isTablet ? 250 : 400,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               image: DecorationImage(
@@ -89,7 +102,7 @@ class _TypeOfClothesState extends State<TypeOfClothes> {
                           );
                         }),
                   ),
-                  const Text('Костюмы'),
+                  // const Text('Костюмы'),
                 ],
               ),
             );

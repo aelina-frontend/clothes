@@ -10,7 +10,6 @@
 // }
 
 
-
 class ClothesData {
   final int id;
   final String image;

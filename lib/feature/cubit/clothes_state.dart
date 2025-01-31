@@ -11,7 +11,9 @@ final class ClothesInitial extends ClothesState {}
 
 final class ClothesLoading extends ClothesState {}
 
-final class ClothesSuccess extends ClothesState {}
+final class ClothesSuccess extends ClothesState {
+
+}
 
 final class ClothesError extends ClothesState {
   final String error;

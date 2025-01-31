@@ -49,11 +49,11 @@ class DesktopScreen extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'Browse The Range',
+            'Швейное производство в Кыргызстане',
             style: AppTextStyle.s32w700,
           ),
           Text(
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+            'Каталог моделей',
             style: AppTextStyle.s20w400,
           )
         ],

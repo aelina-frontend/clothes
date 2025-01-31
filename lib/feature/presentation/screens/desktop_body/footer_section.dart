@@ -1,10 +1,13 @@
-import 'package:clothes/clothes_app/core/app_text_style.dart';
+
 import 'package:clothes/feature/presentation/widgets/button_to_order.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../../../core/app_colors.dart';
+import '../../../../core/app_text_style.dart';
+
+List<IconData> icons = [Bootstrap.whatsapp, Bootstrap.instagram, Bootstrap.telegram, Icons.phone_outlined];
 
 class FooterSection extends StatefulWidget {
   const FooterSection({super.key});
