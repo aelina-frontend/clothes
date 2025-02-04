@@ -148,7 +148,7 @@ class TabletScreen extends StatelessWidget {
                   ),
                   image: DecorationImage(
                     image: AssetImage(
-                      'assets/image14.jpg',
+                      'assets/image1.jpeg',
                     ),
                     fit: BoxFit.cover,
                   )),
@@ -157,7 +157,7 @@ class TabletScreen extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Text(
-              'Костюм',
+              'Платье с рукавами',
               style: AppTextStyle.s16w400,
             ),
           ),

@@ -35,7 +35,7 @@ class Catalog {
 }
 
 List<Catalog> catalog = [
-  Catalog( name: 'кофта', images: ['assets/image2.jpg', 'assets/image3.jpg','assets/image4.jpg']),
-  Catalog(name: 'двойка', images: ['assets/image5.jpg', 'assets/image6.jpg', 'assets/image7.jpg']),
-  Catalog(name: 'штаны', images: ['assets/image8.jpg', 'assets/image9.jpg', 'assets/image7.jpg']),
+  Catalog( name: 'кофта', images: ['assets/image1.jpeg', 'assets/image2.jpeg','assets/image3.jpeg', 'assets/image4.jpeg']),
+  Catalog(name: 'двойка', images: ['assets/image5.png', 'assets/image6.png', 'assets/image7.png']),
+  Catalog(name: 'штаны', images: ['assets/image8.png', 'assets/image9.png', 'assets/image10.png']),
 ];

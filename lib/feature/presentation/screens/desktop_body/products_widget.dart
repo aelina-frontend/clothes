@@ -11,7 +11,7 @@ Widget productsWidget() {
       crossAxisCount: 4,
       mainAxisSpacing: 8,
       crossAxisSpacing: 8,
-      childAspectRatio: 0.7,
+      childAspectRatio: 0.8,
     ),
     delegate: SliverChildBuilderDelegate(
       childCount: 8,
@@ -19,7 +19,7 @@ Widget productsWidget() {
         return Card(
           child: GestureDetector(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => DesktopDetailScreen()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const DesktopDetailScreen()));
             },
             child: Container(
               width: double.infinity,
@@ -37,24 +37,24 @@ Widget productsWidget() {
                         image: DecorationImage(
                             fit: BoxFit.cover,
                             image: AssetImage(
-                              'assets/image14.jpg',
+                              'assets/image1.jpeg',
                             ))),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Column(
                         children: [
-                          const Text('Бирюзовый костюм двойка', style: AppTextStyle.s22w600,),
-                          const SizedBox(height: 5,),
-                          const Text('Стильный костюм двойка актуального кроя', style: AppTextStyle.s12w200, ),
-                          const SizedBox(height: 5,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text('${200}\$', style: AppTextStyle.s16w400,),
-                              buttonToOrder(text: 'Заказать', width: 100, onTap: (){}, isColor: true),
-                            ],
-                          ),
+                          Text('Платье с рукавами', style: AppTextStyle.s22w600,),
+                          SizedBox(height: 5,),
+                          Text('Платье летнее мини А-силуэта', style: AppTextStyle.s12w200, ),
+                          SizedBox(height: 5,),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   children: [
+                          //     const Text('${200}\$', style: AppTextStyle.s16w400,),
+                          //     buttonToOrder(text: 'Заказать', width: 100, onTap: (){}, isColor: true),
+                          //   ],
+                          // ),
                         ]),
                   ),
                 ],

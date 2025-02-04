@@ -1,3 +1,4 @@
+
 import 'package:clothes/feature/presentation/widgets/about_us_widget.dart';
 import 'package:clothes/feature/presentation/widgets/button_to_order.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:icons_plus/icons_plus.dart';
 import '../../../core/app_colors.dart';
 import '../../../core/app_text_style.dart';
+import '../../data/clothes_data.dart';
 import 'desktop_body/button_widget.dart';
 import 'desktop_body/type_of_clothes_widget.dart';
 
@@ -15,6 +17,8 @@ List<IconData> icons = [
   Bootstrap.telegram,
   Icons.phone_outlined
 ];
+
+List<PageController> _pageControllers = [];
 
 class MobileScreen extends StatelessWidget {
   const MobileScreen({super.key});
@@ -26,6 +30,10 @@ class MobileScreen extends StatelessWidget {
         children: [
           _mainBanner(),
           _title(text: 'Швейное производство в Кыргызстане'),
+          // _pageViewBuilder(1),
+          const SizedBox(
+            height: 20,
+          ),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: AboutUsWidget(),
@@ -94,6 +102,30 @@ class MobileScreen extends StatelessWidget {
     );
   }
 
+  Widget _pageViewBuilder(int index){
+    return SizedBox(
+      height: 200,
+      child: PageView.builder(
+          itemCount: 3,
+          controller: _pageControllers[index],
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, pageIndex) {
+            return Container(
+              height: 250,
+              width: 250,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage(
+                      catalog[index].images[pageIndex],
+                    )),
+              ),
+            );
+          }),
+    );
+  }
+
   Widget _productsGrid() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -149,7 +181,7 @@ class MobileScreen extends StatelessWidget {
                   ),
                   image: DecorationImage(
                     image: AssetImage(
-                      'assets/image14.jpg',
+                      'assets/image1.jpeg',
                     ),
                     fit: BoxFit.cover,
                   )),
@@ -158,7 +190,7 @@ class MobileScreen extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Text(
-              'Костюм',
+              'Платье с рукавами',
               style: AppTextStyle.s16w400,
             ),
           ),
@@ -175,7 +207,7 @@ class MobileScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Text(
             'Свяжитесь с нами',
@@ -185,6 +217,7 @@ class MobileScreen extends StatelessWidget {
             height: 20,
           ),
           Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: icons
                   .map((icon) => Padding(
                         padding: const EdgeInsets.only(right: 10),
@@ -201,37 +234,21 @@ class MobileScreen extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          _textField('Ваше имя'),
-          const SizedBox(
-            height: 10,
+          const Text(
+            'Кыргызстан, Бишкек',
+            style: TextStyle(color: Colors.black54, fontSize: 14),
           ),
-          _textField('Номер телефона'),
-          const SizedBox(
-            height: 20,
+          const Text(
+            'Политика конфиденциальности',
+            style: TextStyle(color: Colors.black54, fontSize: 14),
           ),
-          buttonToOrder(
-              text: 'Отправить',
-              width: double.infinity,
-              onTap: () {},
-              isColor: false),
+          const Text(
+            '© Права защищены от копирования 2025',
+            style: TextStyle(color: Colors.black54, fontSize: 14),
+          ),
         ],
       ),
     );
   }
 
-  Widget _textField(String text) {
-    return TextField(
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: AppColors.white,
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-          // borderSide: BorderSide.none,
-        ),
-        hintText: text,
-      ),
-    );
-  }
 }

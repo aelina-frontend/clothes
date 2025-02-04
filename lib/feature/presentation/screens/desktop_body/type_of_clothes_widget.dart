@@ -70,7 +70,7 @@ class _TypeOfClothesState extends State<TypeOfClothes> {
     double descriptionFontSize = isMobile ? 12 : (isTablet ? 13 : 14);
     double buttonWidth = isMobile ? 180 : (isTablet ? 200 : 220);
     return SizedBox(
-      height: isTablet ? 270 : 420,
+      height: isTablet ? 270 : 470,
       child: ListView.builder(
           itemCount: catalog.length,
           shrinkWrap: true,
@@ -81,16 +81,16 @@ class _TypeOfClothesState extends State<TypeOfClothes> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: isTablet ? 250: 400,
-                    width: isTablet ? 250 : 400,
+                    height: isTablet ? 250: 450,
+                    width: isTablet ? 250 : 450,
                     child: PageView.builder(
                         itemCount: catalog[index].images.length,
                         controller: _pageControllers[index],
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, pageIndex) {
                           return Container(
-                            height: isTablet ? 250 : 400,
-                            width: isTablet ? 250 : 400,
+                            height: isTablet ? 250 : 450,
+                            width: isTablet ? 250 : 450,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               image: DecorationImage(

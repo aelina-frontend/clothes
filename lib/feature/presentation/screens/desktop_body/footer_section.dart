@@ -1,4 +1,3 @@
-
 import 'package:clothes/feature/presentation/widgets/button_to_order.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -7,7 +6,12 @@ import 'package:icons_plus/icons_plus.dart';
 import '../../../../core/app_colors.dart';
 import '../../../../core/app_text_style.dart';
 
-List<IconData> icons = [Bootstrap.whatsapp, Bootstrap.instagram, Bootstrap.telegram, Icons.phone_outlined];
+List<IconData> icons = [
+  Bootstrap.whatsapp,
+  Bootstrap.instagram,
+  Bootstrap.telegram,
+  Icons.phone_outlined
+];
 
 class FooterSection extends StatefulWidget {
   const FooterSection({super.key});
@@ -36,27 +40,14 @@ class _FooterSectionState extends State<FooterSection> {
         child: SizedBox(
           height: 380,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: [
               _text(),
               const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _location(),
-                  _mapMenu(),
-                  Column(
-                    children: [
-                      _textField('Ваше имя'),
-                      _textField("Номер телефона"),
-                      buttonToOrder(text: 'Оставить заявку', width: 220, onTap: (){}, isColor: false),
-                    ],
-                  ),
-                ],
-              ),
+              _location(),
               SizedBox(
-                height: 20,
+                height: 25,
               ),
               _developer(),
             ],
@@ -68,10 +59,10 @@ class _FooterSectionState extends State<FooterSection> {
 
   Widget _text() {
     return Align(
-      alignment: Alignment.topLeft,
+      alignment: Alignment.center,
       child: const Text(
         'Давайте начнем работать вместе, сегодня!\nВы всегда можете связаться с нами',
-        textAlign: TextAlign.start,
+        textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
@@ -82,21 +73,26 @@ class _FooterSectionState extends State<FooterSection> {
 
   Widget _location() {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Row(
-          children: [
-            // _buildSocialIcon(Icons.whatsapp),
-            // SizedBox(width: 16),
-            _buildSocialIcon(Icons.telegram),
-            const SizedBox(width: 16),
-            _buildSocialIcon(Icons.photo_camera),
-            // Замените на иконку Instagram
-            const SizedBox(width: 16),
-            _buildSocialIcon(Icons.phone),
-          ],
-        ),
+          mainAxisAlignment: MainAxisAlignment.center,
+            children: icons
+                .map((icon) => Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: InkWell(
+                        onTap: () {},
+                        child: CircleAvatar(
+                          radius: 20,
+                          backgroundColor: AppColors.black,
+                          child: Icon(
+                            icon,
+                            color: AppColors.white,
+                          ),
+                        ),
+                      ),
+                    ))
+                .toList()),
         const SizedBox(height: 16),
         const Text(
           'Кыргызстан, Бишкек',
@@ -107,26 +103,9 @@ class _FooterSectionState extends State<FooterSection> {
           style: TextStyle(color: Colors.black54, fontSize: 14),
         ),
         const Text(
-          '© Права защищены от копирования 2024',
+          '© Права защищены от копирования 2025',
           style: TextStyle(color: Colors.black54, fontSize: 14),
         ),
-      ],
-    );
-  }
-
-  Widget _mapMenu() {
-    return const Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'КАРТА САЙТА',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 5,),
-        Text('ГЛАВНАЯ', style: AppTextStyle.s18w500),
-        Text('О НАС', style: AppTextStyle.s18w500),
-        Text('КАТАЛОГ', style: AppTextStyle.s18w500),
-        Text('КОНТАКТЫ', style: AppTextStyle.s18w500),
       ],
     );
   }
@@ -139,42 +118,6 @@ class _FooterSectionState extends State<FooterSection> {
         icon,
         color: AppColors.white,
         size: 15,
-      ),
-    );
-    // IconButton(
-    //   onPressed: () {
-    //     // Действие при нажатии
-    //   },
-    //   icon: Icon(icon, color: Colors.black),
-    //   iconSize: 32,
-    // );
-  }
-
-  Widget _textField(String text) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 15),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(text),
-          Container(
-            height: 50,
-            width: 220,
-            decoration: BoxDecoration(
-              color: AppColors.white,
-              border: Border.all(color: AppColors.black),
-              borderRadius: BorderRadius.circular(25),
-            ),
-            child: TextField(
-              decoration: InputDecoration(
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                border: InputBorder.none,
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }
