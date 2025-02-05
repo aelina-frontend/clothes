@@ -11,4 +11,5 @@ class AppColors {
   static const Color brown = Color(0xFFB88E2F);
   static const Color lightYellow = Color(0xFFFFF3E3);
   static const Color black = Colors.black;
+  static const Color logoColor = Color(0xFF22284C);
 }

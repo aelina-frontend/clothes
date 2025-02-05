@@ -62,7 +62,7 @@ class _TypeOfClothesState extends State<TypeOfClothes> {
     double imageSize = widget.isDesktop ? 400 : (widget.isTablet ? 250 : 200);
 
     return SizedBox(
-      height: widget.isTablet ? 270 : (widget.isDesktop ? 470 : 550),
+      height: widget.isTablet ? 270 : (widget.isDesktop ? 470 : 450),
       child: widget.isDesktop || widget.isTablet ? ListView.builder(
         itemCount: catalog.length,
         shrinkWrap: true,
@@ -70,20 +70,21 @@ class _TypeOfClothesState extends State<TypeOfClothes> {
         itemBuilder: (context, index) {
           return _clothes(imageSize: imageSize, index: index, isMobile: false);
         },
-      ) : Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: GridView.builder(
-          physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-            itemCount: catalog.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-        childAspectRatio: 0.7,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-        ), itemBuilder: (context, index){
-          return _clothes(imageSize: imageSize, index: index, isMobile: true);
-        }),
+      ) : Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _clothes(imageSize: imageSize, index: 0, isMobile: true),
+              _clothes(imageSize: imageSize, index: 1, isMobile: true),
+            ],
+          ),
+          SizedBox(height: 10,),
+          _clothes(imageSize: imageSize, index: 2, isMobile: true),
+
+        ],
       )
     );
   }
@@ -93,15 +94,13 @@ class _TypeOfClothesState extends State<TypeOfClothes> {
       padding: EdgeInsets.only(right: isMobile ? 0 : 15),
       child: SizedBox(
         height: imageSize,
-        width: imageSize,
+        width: isMobile ? imageSize-10 : imageSize,
         child: PageView.builder(
           itemCount: catalog[index].images.length,
           controller: _pageControllers[index],
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, pageIndex) {
             return Container(
-              height: imageSize,
-              width: imageSize,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(

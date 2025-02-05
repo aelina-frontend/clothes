@@ -2,6 +2,7 @@
 import 'package:clothes/feature/presentation/screens/desktop_body/desktop_detail_screen.dart';
 import 'package:clothes/feature/presentation/screens/landing_page.dart';
 import 'package:clothes/presentation/main_screen.dart';
+import 'package:clothes/presentation/responsive/home_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:device_preview/device_preview.dart';
