@@ -1,15 +1,17 @@
 import 'package:clothes/core/app_constants/app_string.dart';
+import 'package:clothes/core/utils.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/app_text_style.dart';
 
-class MainTitle extends StatelessWidget {
-  final bool isDesktop;
-  final bool isTablet;
-  const MainTitle({super.key, required this.isDesktop, required this.isTablet});
+class MainTitle extends StatelessWidget
+{
+  const MainTitle({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
+    final device = getDevice(MediaQuery.of(context).size.width);
     return Padding(
       padding: EdgeInsets.only(top: 30, bottom: 20),
       child: Column(
@@ -19,7 +21,7 @@ class MainTitle extends StatelessWidget {
           Text(
             AppString.sewingTitle,
             textAlign: TextAlign.center,
-            style: isDesktop ? AppTextStyle.s32w700 : AppTextStyle.s22w600,
+            style: device == DeviceSize.desktop ? AppTextStyle.s32w700 : AppTextStyle.s22w600,
           ),
           const Text(
             AppString.catalogTitle,

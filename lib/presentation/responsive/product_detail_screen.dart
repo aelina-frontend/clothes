@@ -1,11 +1,12 @@
+import 'package:clothes/core/utils.dart';
 import 'package:flutter/material.dart';
 import '../../core/app_text_style.dart';
 import '../../data/clothes.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   final Clothes clothes;
-  final bool isDesktop;
-  const ProductDetailScreen({super.key, required this.clothes, required this.isDesktop});
+
+  const ProductDetailScreen({super.key, required this.clothes});
 
   @override
   State<ProductDetailScreen> createState() => _ProductDetailScreenState();
@@ -25,8 +26,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   }
 
   // Метод для перехода на следующую страницу
-  void _nextPage()
-  {
+  void _nextPage() {
     _pageController.nextPage(
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
@@ -34,8 +34,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   }
 
   // Метод для перехода на предыдущую страницу
-  void _previousPage()
-  {
+  void _previousPage() {
     _pageController.previousPage(
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
@@ -43,9 +42,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   }
 
   @override
-  Widget build(BuildContext context)
-  {
-    print(widget.isDesktop);
+  Widget build(BuildContext context) {
+    final device = getDevice(MediaQuery.of(context).size.width);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -54,67 +52,33 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         ),
         title: const Text('Больше товаров'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 20),
-        child:  widget.isDesktop ? Row(
-          children: [
-            Expanded(
-              child: Column(
-                children: [
-                  _buildPageView(widget.clothes, widget.isDesktop),
-                  const SizedBox(height: 10),
-                  _buildSmallImages(widget.clothes),
-                ],
-              ),
-            ),
-            const Expanded(
-              child: Column(
-                children: [
-                  Text(
-                    'Бирюзовый костюм двойка',
-                    style: AppTextStyle.s22w600,
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  const Text(
-                    'Стильный костюм двойка актуального кроя',
-                    style: AppTextStyle.s12w200,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ) : SizedBox(
-          height: 300,
-          width: double.infinity,
-          child: PageView.builder(
-            controller: _pageController,
-            itemCount: widget.clothes.image.length,
-            itemBuilder: (context, index) {
-              return Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(widget.clothes.images[index]),
+      body: device == DeviceSize.desktop || device == DeviceSize.tablet
+          ? Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    children: [
+                      _buildPageView(widget.clothes, device),
+                      const SizedBox(height: 10),
+                      _buildSmallImages(widget.clothes),
+                    ],
                   ),
                 ),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: _buildPageNavigationButtons(index, widget.clothes),
-                ),
-              );
-            },
-          ),
-        ),
-      ),
+                _text(),
+              ],
+            )
+          : _mobileDetail(),
     );
   }
 
-  Widget _buildPageView(Clothes data, bool isDesktop) {
+  Widget _buildPageView(Clothes data, DeviceSize device) {
     return SizedBox(
-      height: isDesktop ? 550 : 250,
-      width: isDesktop ? 500 : 200,
+      height: device == DeviceSize.desktop
+          ? 550
+          : (device == DeviceSize.tablet ? 500 : 250),
+      width: device == DeviceSize.desktop
+          ? 500
+          : (device == DeviceSize.tablet ? 450 : 200),
       child: PageView.builder(
         controller: _pageController,
         itemCount: data.images.length,
@@ -176,31 +140,86 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
   // Виджет для отображения миниатюр
   Widget _buildSmallImages(Clothes data) {
-    return SizedBox(
-      height: 80,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 20),
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: data.images.length,
-          itemBuilder: (context, index) {
-            return InkWell(
-              onTap: () => _selectedImage(index),
-              child: Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    data.images[index],
-                    width: 80,
-                    height: 80,
-                    fit: BoxFit.cover,
+    return SliverToBoxAdapter(
+      child: SizedBox(
+        height: 80,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20, top: 15),
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: data.images.length,
+            itemBuilder: (context, index) {
+              return InkWell(
+                onTap: () => _selectedImage(index),
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      data.images[index],
+                      height: 80,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
+      ),
+    );
+  }
+
+  Widget _mobileDetail() {
+    return CustomScrollView(
+      shrinkWrap: false,
+      scrollDirection: Axis.vertical,
+      slivers: [
+        SliverToBoxAdapter(
+          child: SizedBox(
+            height: 500,
+            child: PageView.builder(
+              controller: _pageController,
+              itemCount: widget.clothes.image.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.contain,
+                      image: NetworkImage(widget.clothes.images[index],),
+                    ),
+                  ),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: _buildPageNavigationButtons(index, widget.clothes),
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+        _buildSmallImages(widget.clothes),
+        SliverToBoxAdapter(child: _text()),
+      ],
+    );
+  }
+
+  Widget _text() {
+    return const Expanded(
+      child: Column(
+        children: [
+          Text(
+            'Бирюзовый костюм двойка',
+            style: AppTextStyle.s22w600,
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          Text(
+            'Стильный костюм двойка актуального кроя',
+            style: AppTextStyle.s12w200,
+          ),
+        ],
       ),
     );
   }

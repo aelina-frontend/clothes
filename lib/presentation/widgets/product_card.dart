@@ -70,30 +70,30 @@ class ProductsGrid extends StatelessWidget
     return GestureDetector(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(
-            builder: (context) => ProductDetailScreen(clothes: data, isDesktop: true,)));
+            builder: (context) => ProductDetailScreen(clothes: data)));
       },
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
+          // color: Colors.white,
+          // borderRadius: BorderRadius.circular(10),
           boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.1),
-              spreadRadius: 1,
-              blurRadius: 5,
-            ),
+            // BoxShadow(
+            //   color: Colors.grey.withOpacity(0.06),
+            //   spreadRadius: 1,
+            //   blurRadius: 2,
+            // ),
           ],
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
                   image: DecorationImage(
                     image: NetworkImage(data.image),
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                   ),
                 ),
               ),
@@ -101,9 +101,10 @@ class ProductsGrid extends StatelessWidget
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
+                    textAlign: TextAlign.center,
                     data.title,
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
                   ),

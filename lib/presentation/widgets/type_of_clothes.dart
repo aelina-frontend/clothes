@@ -1,20 +1,20 @@
 import 'dart:async';
 
+import 'package:clothes/core/utils.dart';
 import 'package:flutter/material.dart';
 
 import '../../data/clothes.dart';
 
-class TypeOfClothes extends StatefulWidget {
-  final bool isDesktop;
-  final bool isTablet;
-
-  const TypeOfClothes({super.key, required this.isDesktop, required this.isTablet});
+class TypeOfClothes extends StatefulWidget
+{
+  const TypeOfClothes({super.key});
 
   @override
   State<TypeOfClothes> createState() => _TypeOfClothesState();
 }
 
-class _TypeOfClothesState extends State<TypeOfClothes> {
+class _TypeOfClothesState extends State<TypeOfClothes>
+{
 
   List<PageController> _pageControllers = [];
 
@@ -59,12 +59,25 @@ class _TypeOfClothesState extends State<TypeOfClothes> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    double imageSize = widget.isDesktop ? 400 : (widget.isTablet ? 250 : 200);
+  Widget build(BuildContext context)
+  {
+    final device = getDevice(MediaQuery.of(context).size.width);
+    double imageSize;
+    switch(device){
+      case DeviceSize.desktop:
+        imageSize = 400;
+        break;
+      case DeviceSize.tablet:
+        imageSize = 250;
+        break;
+      case DeviceSize.mobile:
+        imageSize = 200;
+        break;
+    }
 
     return SizedBox(
-      height: widget.isTablet ? 270 : (widget.isDesktop ? 470 : 450),
-      child: widget.isDesktop || widget.isTablet ? ListView.builder(
+      height: device == DeviceSize.tablet ? 270 : (device == DeviceSize.desktop ? 470 : 450),
+      child: device == DeviceSize.desktop || device == DeviceSize.tablet ? ListView.builder(
         itemCount: catalog.length,
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
@@ -105,7 +118,7 @@ class _TypeOfClothesState extends State<TypeOfClothes> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain,
                   image: AssetImage(catalog[index].images[pageIndex]),
                 ),
               ),

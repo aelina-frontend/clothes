@@ -1,4 +1,5 @@
 import 'package:clothes/core/app_constants/app_function.dart';
+import 'package:clothes/core/utils.dart';
 import 'package:clothes/data/navigation_data.dart';
 import 'package:clothes/data/social_media.dart';
 import 'package:clothes/presentation/responsive/desktop_screen.dart';
@@ -36,20 +37,15 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final bool isMobile = screenWidth < 600;
-    final bool isTablet = screenWidth >= 600 && screenWidth < 1200;
-    final bool isDesktop = screenWidth >= 1200;
-
+  Widget build(BuildContext context)
+  {
+    DeviceSize device = getDevice(MediaQuery.of(context).size.width);
     return Scaffold(
-        appBar: _buildAppBar(isDesktop),
-        drawer: _buildDrawer(isMobile, isTablet),
+        appBar: _buildAppBar(device),
+        drawer: _buildDrawer(device),
         body: BodyContent(
           controller: _scrollController,
-          isMobile: isMobile,
-          isTablet: isTablet,
-          isDesktop: isDesktop,
+          device: device,
           key1: keys[0],
           key2: keys[1],
           key3: keys[2],
@@ -57,25 +53,26 @@ class _MainScreenState extends State<MainScreen> {
         ));
   }
 
-  PreferredSizeWidget _buildAppBar(bool isDesktop) {
+  PreferredSizeWidget _buildAppBar(DeviceSize device)
+  {
     return AppBar(
       backgroundColor: AppColors.white,
       centerTitle: true,
-      leadingWidth: isDesktop ? 120 : 60,
-      leading: isDesktop
+      leadingWidth: device == DeviceSize.desktop ? 120 : 60,
+      leading: device == DeviceSize.desktop
           ? const Center(
               child: Text(
               'AKULUX',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ))
           : null,
-      title: _buildAppBarTitle(isDesktop),
-      actions: _buildAppBarActions(isDesktop),
+      title: _buildAppBarTitle(device),
+      actions: _buildAppBarActions(device),
     );
   }
 
-  Widget _buildAppBarTitle(bool isDesktop) {
-    if (isDesktop) {
+  Widget _buildAppBarTitle(DeviceSize device) {
+    if (device == DeviceSize.desktop) {
       return Row(
         mainAxisSize: MainAxisSize.min,
         children: navigation.asMap().entries.map((entry) {
@@ -98,8 +95,8 @@ class _MainScreenState extends State<MainScreen> {
     }
   }
 
-  List<Widget> _buildAppBarActions(bool isDesktop) {
-    if (isDesktop) {
+  List<Widget> _buildAppBarActions(DeviceSize device) {
+    if (device == DeviceSize.desktop) {
       return socialMedia
           .map((item) => Padding(
                 padding: const EdgeInsets.only(right: 15),
@@ -123,8 +120,8 @@ class _MainScreenState extends State<MainScreen> {
     }
   }
 
-  Widget _buildDrawer(bool isMobile, bool isTablet) {
-    if (isMobile || isTablet) {
+  Widget _buildDrawer(DeviceSize device) {
+    if (device == DeviceSize.mobile || device == DeviceSize.tablet) {
       return Drawer(
         child: ListView.builder(
             itemCount: navigation.length,
@@ -146,9 +143,7 @@ class _MainScreenState extends State<MainScreen> {
 }
 
 class BodyContent extends StatelessWidget {
-  final bool isMobile;
-  final bool isTablet;
-  final bool isDesktop;
+  final DeviceSize device;
   final GlobalKey key1;
   final GlobalKey key2;
   final GlobalKey key3;
@@ -157,9 +152,7 @@ class BodyContent extends StatelessWidget {
 
   const BodyContent(
       {super.key,
-      required this.isMobile,
-      required this.isTablet,
-      required this.isDesktop,
+      required this.device,
       required this.key1,
       required this.key2,
       required this.key3,
@@ -168,19 +161,16 @@ class BodyContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (isMobile) {
+    if (device == DeviceSize.mobile) {
       return MobileScreen(
         controller: controller,
-        isTablet: isTablet,
-        isMobile: isMobile,
         key1: key1,
         key2: key2,
         key3: key3,
         key4: key4,
       );
-    } else if (isTablet) {
+    } else if (device == DeviceSize.tablet) {
       return TabletScreen(
-        isTablet: isTablet,
         key1: key1,
         key2: key2,
         key3: key3,
@@ -188,7 +178,6 @@ class BodyContent extends StatelessWidget {
       );
     } else {
       return DesktopScreen(
-        isDesktop: isDesktop,
         key1: key1,
         key2: key2,
         key3: key3,

@@ -1,32 +1,32 @@
 import 'package:clothes/core/app_constants/app_string.dart';
+import 'package:clothes/core/utils.dart';
 import 'package:flutter/material.dart';
 
-class AboutUsWidget extends StatelessWidget {
-  final bool isMobile;
-  final bool isTablet;
+class AboutUsWidget extends StatelessWidget
+{
   final GlobalKey key2;
   const AboutUsWidget({
     super.key,
-    required this.isMobile,
-    required this.isTablet,
     required this.key2,
   });
 
   @override
-  Widget build(BuildContext context) {
-    int crossAxisCount = isMobile ? 1 : (isTablet ? 2 : 3);
-    double childAspectRatio = isMobile ? 2.5 : (isTablet ? 2.8 : 2.5);
-    double titleFontSize = isMobile ? 20 : (isTablet ? 22 : 24);
-    double numberFontSize = isMobile ? 24 : (isTablet ? 28 : 32);
-    double itemTitleFontSize = isMobile ? 16 : (isTablet ? 17 : 18);
-    double descriptionFontSize = isMobile ? 12 : (isTablet ? 13 : 14);
-    double buttonWidth = isMobile ? 180 : (isTablet ? 200 : 220);
+  Widget build(BuildContext context)
+  {
+    final device = getDevice(MediaQuery.of(context).size.width);
+    int crossAxisCount = device == DeviceSize.mobile ? 1 : (device == DeviceSize.tablet ? 2 : 3);
+    double childAspectRatio = device == DeviceSize.mobile ? 2.5 : (device == DeviceSize.tablet ? 2.8 : 2.5);
+    double titleFontSize = device == DeviceSize.mobile ? 20 : (device == DeviceSize.tablet ? 22 : 24);
+    double numberFontSize = device == DeviceSize.mobile ? 24 : (device == DeviceSize.tablet ? 28 : 32);
+    double itemTitleFontSize = device == DeviceSize.mobile ? 16 : (device == DeviceSize.tablet ? 17 : 18);
+    double descriptionFontSize = device == DeviceSize.mobile ? 12 : (device == DeviceSize.tablet ? 13 : 14);
+    double buttonWidth = device == DeviceSize.mobile ? 180 : (device == DeviceSize.tablet ? 200 : 220);
 
     return Container(
       key: key2,
       padding: EdgeInsets.symmetric(
-        horizontal: isMobile ? 15 : 25,
-        vertical: isMobile ? 15 : 25,
+        horizontal: device == DeviceSize.mobile ? 15 : 25,
+        vertical: device == DeviceSize.mobile ? 15 : 25,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,7 +38,7 @@ class AboutUsWidget extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
           ),
-          SizedBox(height: isMobile ? 12 : 16),
+          SizedBox(height: device == DeviceSize.mobile ? 12 : 16),
           GridView.count(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),

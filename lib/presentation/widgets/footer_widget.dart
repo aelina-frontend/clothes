@@ -6,11 +6,10 @@ import '../../core/app_colors.dart';
 import '../../core/app_constants/app_function.dart';
 import '../../core/app_text_style.dart';
 
-class FooterWidget extends StatelessWidget {
-  final bool isDesktop;
-  final bool isMobile;
+class FooterWidget extends StatelessWidget
+{
   final GlobalKey key4;
-  const FooterWidget({super.key, required this.isDesktop, required this.isMobile, required this.key4});
+  const FooterWidget({super.key, required this.key4});
 
   @override
   Widget build(BuildContext context) {
