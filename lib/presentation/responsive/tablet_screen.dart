@@ -9,7 +9,11 @@ import '../widgets/product_card.dart';
 
 class TabletScreen extends StatelessWidget {
   final bool isTablet;
-  const TabletScreen({super.key, required this.isTablet});
+  final GlobalKey key1;
+  final GlobalKey key2;
+  final GlobalKey key3;
+  final GlobalKey key4;
+  const TabletScreen({super.key, required this.isTablet, required this.key1, required this.key2, required this.key3, required this.key4});
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +22,13 @@ class TabletScreen extends StatelessWidget {
         SliverToBoxAdapter(
           child: Column(
             children: [
-              MainBanner(isDesktop: false, isTablet: isTablet),
+              MainBanner(isDesktop: false, isTablet: isTablet, key1: key1,),
               MainTitle(isDesktop: false, isTablet: isTablet),
               TypeOfClothes(isDesktop: false, isTablet: isTablet),
-              AboutUsWidget(isMobile: false, isTablet: isTablet),
+              AboutUsWidget(isMobile: false, isTablet: isTablet, key2: key2,),
               AssortmentText(isDesktop: false, isTablet: isTablet),
-              const ProductsGrid(crossAxisCount: 2, childAspectRatio: 0.8),
-              const FooterWidget(isDesktop: false, isMobile: false),
+              ProductsGrid(crossAxisCount: 2, childAspectRatio: 0.8, key3: key3,),
+              FooterWidget(isDesktop: false, isMobile: false, key4: key4,),
             ],
           ),
         ),

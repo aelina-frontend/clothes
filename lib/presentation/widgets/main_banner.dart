@@ -4,21 +4,23 @@ import 'package:flutter/material.dart';
 
 import '../../core/app_colors.dart';
 import '../../core/app_text_style.dart';
-import '../../feature/presentation/screens/desktop_body/button_widget.dart';
+import 'button_widget.dart';
 
 class MainBanner extends StatelessWidget {
   final bool isDesktop;
   final bool isTablet;
-
+  final GlobalKey key1;
   const MainBanner({
     Key? key,
     required this.isDesktop,
     required this.isTablet,
+  required this.key1,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Stack(
+      key: key1,
       children: [
         Container(
           height: isDesktop ? 500 : 300,

@@ -11,26 +11,42 @@ import '../widgets/main_title.dart';
 class MobileScreen extends StatelessWidget {
   final bool isTablet;
   final bool isMobile;
-  const MobileScreen({super.key, required this.isTablet, required this.isMobile});
+  final GlobalKey key1;
+  final GlobalKey key2;
+  final GlobalKey key3;
+  final GlobalKey key4;
+  final ScrollController controller;
+
+  const MobileScreen(
+      {super.key,
+      required this.isTablet,
+      required this.isMobile,
+      required this.key1,
+      required this.key2,
+      required this.key3,
+      required this.key4,
+      required this.controller});
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        SliverToBoxAdapter(
-          child: Column(
-            children: [
-              MainBanner(isDesktop: false, isTablet: isTablet),
-              MainTitle(isDesktop: false, isTablet: isTablet),
-              TypeOfClothes(isDesktop: false, isTablet: isTablet),
-              AboutUsWidget(isMobile: isMobile, isTablet: false),
-              AssortmentText(isDesktop: false, isTablet: isTablet),
-              ProductsGrid(crossAxisCount: 2, childAspectRatio: 0.8),
-              FooterWidget(isDesktop: false, isMobile: isMobile),
-            ],
-          ),
+    return ListView(
+      controller: controller,
+      children: [
+        MainBanner(
+          isDesktop: false,
+          isTablet: isTablet,
+          key1: key1,
         ),
-
+        MainTitle(isDesktop: false, isTablet: isTablet),
+        TypeOfClothes(isDesktop: false, isTablet: isTablet),
+        AboutUsWidget(
+          isMobile: isMobile,
+          isTablet: false,
+          key2: key2,
+        ),
+        AssortmentText(isDesktop: false, isTablet: isTablet),
+        ProductsGrid(crossAxisCount: 2, childAspectRatio: 0.8, key3: key3,),
+        FooterWidget(isDesktop: false, isMobile: isMobile, key4: key4,),
       ],
     );
   }

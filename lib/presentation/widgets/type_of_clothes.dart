@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../../feature/data/clothes_data.dart';
+import '../../data/clothes.dart';
 
 class TypeOfClothes extends StatefulWidget {
   final bool isDesktop;
@@ -15,6 +15,7 @@ class TypeOfClothes extends StatefulWidget {
 }
 
 class _TypeOfClothesState extends State<TypeOfClothes> {
+
   List<PageController> _pageControllers = [];
 
   late Timer _timer;

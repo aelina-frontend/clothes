@@ -1,15 +1,15 @@
 import 'package:clothes/core/app_constants/app_string.dart';
-import 'package:clothes/feature/presentation/widgets/button_to_order.dart';
 import 'package:flutter/material.dart';
 
 class AboutUsWidget extends StatelessWidget {
   final bool isMobile;
   final bool isTablet;
-
+  final GlobalKey key2;
   const AboutUsWidget({
     super.key,
     required this.isMobile,
     required this.isTablet,
+    required this.key2,
   });
 
   @override
@@ -23,6 +23,7 @@ class AboutUsWidget extends StatelessWidget {
     double buttonWidth = isMobile ? 180 : (isTablet ? 200 : 220);
 
     return Container(
+      key: key2,
       padding: EdgeInsets.symmetric(
         horizontal: isMobile ? 15 : 25,
         vertical: isMobile ? 15 : 25,
@@ -45,45 +46,65 @@ class AboutUsWidget extends StatelessWidget {
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
             childAspectRatio: childAspectRatio,
-            children: _buildItems(numberFontSize, itemTitleFontSize, descriptionFontSize),
+            children: _buildItems(
+                numberFontSize, itemTitleFontSize, descriptionFontSize),
           ),
           SizedBox(height: 10),
-          Center(
-            child: buttonToOrder(
-              text: AppString.getConsultation,
-              width: buttonWidth,
-              onTap: () {},
-              isColor: false,
-            ),
-          ),
+          // Center(
+          //   child: buttonToOrder(
+          //     text: AppString.getConsultation,
+          //     width: buttonWidth,
+          //     onTap: () {},
+          //     isColor: false,
+          //   ),
+          // ),
         ],
       ),
     );
   }
 
   List<Widget> _buildItems(
-      double numberFontSize,
-      double titleFontSize,
-      double descriptionFontSize,
-      ) {
+    double numberFontSize,
+    double titleFontSize,
+    double descriptionFontSize,
+  ) {
     final items = [
-      ['1', 'Производительная мощность', 'Более 10 тыс единиц готовой продукции в неделю, в зависимости от сложности модели'],
-      ['2', 'Оперативная калькуляция', 'Отправьте нам фото и узнайте стоимость пошива вашего изделия за 15 минут'],
-      ['3', 'Эталонный образец', 'Разработаем лекала и отшьем образец от 2х до 5 дней'],
-      ['4', 'Условия сотрудничества', '50% предоплата для запуска производства и 50% оставшейся перед отправкой заказа.'],
+      [
+        '1',
+        'Производительная мощность',
+        'Более 10 тыс единиц готовой продукции в неделю, в зависимости от сложности модели'
+      ],
+      [
+        '2',
+        'Оперативная калькуляция',
+        'Отправьте нам фото и узнайте стоимость пошива вашего изделия за 15 минут'
+      ],
+      [
+        '3',
+        'Эталонный образец',
+        'Разработаем лекала и отшьем образец от 2х до 5 дней'
+      ],
+      [
+        '4',
+        'Условия сотрудничества',
+        '50% предоплата для запуска производства и 50% оставшейся перед отправкой заказа.'
+      ],
     ];
 
-    return items.map((item) => _buildItem(item[0], item[1], item[2], numberFontSize, titleFontSize, descriptionFontSize)).toList();
+    return items
+        .map((item) => _buildItem(item[0], item[1], item[2], numberFontSize,
+            titleFontSize, descriptionFontSize))
+        .toList();
   }
 
   Widget _buildItem(
-      String number,
-      String title,
-      String description,
-      double numberFontSize,
-      double titleFontSize,
-      double descriptionFontSize,
-      ) {
+    String number,
+    String title,
+    String description,
+    double numberFontSize,
+    double titleFontSize,
+    double descriptionFontSize,
+  ) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(

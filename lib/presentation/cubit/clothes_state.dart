@@ -12,7 +12,9 @@ final class ClothesInitial extends ClothesState {}
 final class ClothesLoading extends ClothesState {}
 
 final class ClothesSuccess extends ClothesState {
+  final List<Clothes> clothes;
 
+  const ClothesSuccess({required this.clothes});
 }
 
 final class ClothesError extends ClothesState {
@@ -21,5 +23,6 @@ final class ClothesError extends ClothesState {
   const ClothesError({required this.error});
 
   @override
-  List<Object> get props => [error];
+  List<Object> get props => [];
 }
+

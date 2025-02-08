@@ -9,11 +9,13 @@ import '../../core/app_text_style.dart';
 class FooterWidget extends StatelessWidget {
   final bool isDesktop;
   final bool isMobile;
-  const FooterWidget({super.key, required this.isDesktop, required this.isMobile});
+  final GlobalKey key4;
+  const FooterWidget({super.key, required this.isDesktop, required this.isMobile, required this.key4});
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      key: key4,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: AppColors.lightYellow,
