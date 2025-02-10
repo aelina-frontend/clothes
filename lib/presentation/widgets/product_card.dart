@@ -74,14 +74,14 @@ class ProductsGrid extends StatelessWidget
       },
       child: Container(
         decoration: BoxDecoration(
-          // color: Colors.white,
-          // borderRadius: BorderRadius.circular(10),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
           boxShadow: [
-            // BoxShadow(
-            //   color: Colors.grey.withOpacity(0.06),
-            //   spreadRadius: 1,
-            //   blurRadius: 2,
-            // ),
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.01),
+              spreadRadius: 1,
+              blurRadius: 5,
+            ),
           ],
         ),
         child: Column(
@@ -93,7 +93,7 @@ class ProductsGrid extends StatelessWidget
                   borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
                   image: DecorationImage(
                     image: NetworkImage(data.image),
-                    fit: BoxFit.contain,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),

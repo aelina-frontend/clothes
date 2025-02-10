@@ -13,32 +13,41 @@ class MobileScreen extends StatelessWidget {
   final GlobalKey key2;
   final GlobalKey key3;
   final GlobalKey key4;
-  final ScrollController controller;
 
   const MobileScreen(
       {super.key,
       required this.key1,
       required this.key2,
       required this.key3,
-      required this.key4,
-      required this.controller});
+      required this.key4,});
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      controller: controller,
-      children: [
-        MainBanner(
-          key1: key1,
+    return CustomScrollView(
+      slivers: [
+        SliverToBoxAdapter(
+          child: Column(
+            children: [
+              MainBanner(
+                key1: key1,
+              ),
+              const MainTitle(),
+              const TypeOfClothes(),
+              AboutUsWidget(
+                key2: key2,
+              ),
+              const AssortmentText(),
+              ProductsGrid(
+                crossAxisCount: 2,
+                childAspectRatio: 0.8,
+                key3: key3,
+              ),
+              FooterWidget(
+                key4: key4,
+              ),
+            ],
+          ),
         ),
-        const MainTitle(),
-        const TypeOfClothes(),
-        AboutUsWidget(
-          key2: key2,
-        ),
-        const AssortmentText(),
-        ProductsGrid(crossAxisCount: 2, childAspectRatio: 0.8, key3: key3,),
-        FooterWidget(key4: key4,),
       ],
     );
   }

@@ -44,7 +44,6 @@ class _MainScreenState extends State<MainScreen> {
         appBar: _buildAppBar(device),
         drawer: _buildDrawer(device),
         body: BodyContent(
-          controller: _scrollController,
           device: device,
           key1: keys[0],
           key2: keys[1],
@@ -148,7 +147,6 @@ class BodyContent extends StatelessWidget {
   final GlobalKey key2;
   final GlobalKey key3;
   final GlobalKey key4;
-  final ScrollController controller;
 
   const BodyContent(
       {super.key,
@@ -156,14 +154,12 @@ class BodyContent extends StatelessWidget {
       required this.key1,
       required this.key2,
       required this.key3,
-      required this.key4,
-      required this.controller});
+      required this.key4,});
 
   @override
   Widget build(BuildContext context) {
     if (device == DeviceSize.mobile) {
       return MobileScreen(
-        controller: controller,
         key1: key1,
         key2: key2,
         key3: key3,

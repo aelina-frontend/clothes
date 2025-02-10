@@ -21,7 +21,6 @@ class DesktopScreen extends StatelessWidget
   Widget build(BuildContext context) {
     return CustomScrollView(
       shrinkWrap: false,
-
       slivers: [
         SliverToBoxAdapter(
           child: Column(

@@ -9,6 +9,7 @@ class AppTextStyle {
   static const s16w400  = TextStyle(fontSize: 16, fontWeight: FontWeight.w400);
   static const s18w500  = TextStyle(fontSize: 18, fontWeight: FontWeight.w500);
   static const s20w400 = TextStyle(fontSize: 20, fontWeight: FontWeight.w400);
+  static const s20w600 = TextStyle(fontSize: 20, fontWeight: FontWeight.w600);
   static const s22w600 = TextStyle(fontSize: 22, fontWeight: FontWeight.w600);
   static const s30w500 = TextStyle(fontSize: 30, fontWeight: FontWeight.w500);
   static const s30cBrown = TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: AppColors.brown);

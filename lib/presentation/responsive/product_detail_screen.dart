@@ -64,7 +64,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     ],
                   ),
                 ),
-                _text(),
+                _text(widget.clothes),
               ],
             )
           : _mobileDetail(),
@@ -79,23 +79,26 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       width: device == DeviceSize.desktop
           ? 500
           : (device == DeviceSize.tablet ? 450 : 200),
-      child: PageView.builder(
-        controller: _pageController,
-        itemCount: data.images.length,
-        itemBuilder: (context, index) {
-          return Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage(data.images[index]),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 20),
+        child: PageView.builder(
+          controller: _pageController,
+          itemCount: data.images.length,
+          itemBuilder: (context, index) {
+            return Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.contain,
+                  image: NetworkImage(data.images[index]),
+                ),
               ),
-            ),
-            child: Align(
-              alignment: Alignment.center,
-              child: _buildPageNavigationButtons(index, widget.clothes),
-            ),
-          );
-        },
+              child: Align(
+                alignment: Alignment.center,
+                child: _buildPageNavigationButtons(index, widget.clothes),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
@@ -103,13 +106,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   // Кнопки для перехода между страницами
   Widget _buildPageNavigationButtons(int index, Clothes data) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         if (index > 0) // Отображаем кнопку назад, если это не первая страница
           _buildNavigationButton(
             icon: Icons.arrow_back_ios,
             onTap: _previousPage,
           ),
+        Spacer(),
         if (index <
             data.images.length -
                 1) // Отображаем кнопку вперед, если это не последняя страница
@@ -140,86 +143,121 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
   // Виджет для отображения миниатюр
   Widget _buildSmallImages(Clothes data) {
-    return SliverToBoxAdapter(
-      child: SizedBox(
-        height: 80,
-        child: Padding(
-          padding: const EdgeInsets.only(left: 20, top: 15),
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: data.images.length,
-            itemBuilder: (context, index) {
-              return InkWell(
-                onTap: () => _selectedImage(index),
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 8),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.network(
-                      data.images[index],
-                      height: 80,
-                      fit: BoxFit.contain,
-                    ),
+    return SizedBox(
+      height: 80,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 20, top: 15),
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: data.images.length,
+          itemBuilder: (context, index) {
+            return InkWell(
+              onTap: () => _selectedImage(index),
+              child: Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.network(
+                    data.images[index],
+                    height: 80,
+                    fit: BoxFit.contain,
                   ),
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
       ),
     );
   }
 
   Widget _mobileDetail() {
-    return CustomScrollView(
-      shrinkWrap: false,
-      scrollDirection: Axis.vertical,
-      slivers: [
-        SliverToBoxAdapter(
-          child: SizedBox(
-            height: 500,
-            child: PageView.builder(
-              controller: _pageController,
-              itemCount: widget.clothes.image.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      fit: BoxFit.contain,
-                      image: NetworkImage(widget.clothes.images[index],),
+    return Column(
+      children: [
+        SizedBox(
+              height: 470,
+              child: PageView.builder(
+                controller: _pageController,
+                itemCount: widget.clothes.image.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(
+                          widget.clothes.images[index],
+                        ),
+                      ),
                     ),
-                  ),
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: _buildPageNavigationButtons(index, widget.clothes),
-                  ),
-                );
-              },
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: _buildPageNavigationButtons(index, widget.clothes),
+                    ),
+                  );
+                },
+              ),
             ),
-          ),
-        ),
         _buildSmallImages(widget.clothes),
-        SliverToBoxAdapter(child: _text()),
+        _text(widget.clothes),
       ],
     );
   }
 
-  Widget _text() {
-    return const Expanded(
-      child: Column(
-        children: [
-          Text(
-            'Бирюзовый костюм двойка',
-            style: AppTextStyle.s22w600,
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          Text(
-            'Стильный костюм двойка актуального кроя',
-            style: AppTextStyle.s12w200,
-          ),
-        ],
+  // Widget _mobileDetail() {
+  //   return CustomScrollView(
+  //     shrinkWrap: false,
+  //     scrollDirection: Axis.vertical,
+  //     slivers: [
+  //       SliverToBoxAdapter(
+  //         child: SizedBox(
+  //           height: 470,
+  //           child: PageView.builder(
+  //             controller: _pageController,
+  //             itemCount: widget.clothes.image.length,
+  //             itemBuilder: (context, index) {
+  //               return Container(
+  //                 decoration: BoxDecoration(
+  //                   image: DecorationImage(
+  //                     fit: BoxFit.cover,
+  //                     image: NetworkImage(
+  //                       widget.clothes.images[index],
+  //                     ),
+  //                   ),
+  //                 ),
+  //                 child: Align(
+  //                   alignment: Alignment.center,
+  //                   child: _buildPageNavigationButtons(index, widget.clothes),
+  //                 ),
+  //               );
+  //             },
+  //           ),
+  //         ),
+  //       ),
+  //       _buildSmallImages(widget.clothes),
+  //       SliverToBoxAdapter(child: _text(widget.clothes)),
+  //     ],
+  //   );
+  // }
+
+  Widget _text(Clothes data) {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+        child: Column(
+          children: [
+            Text(
+              data.title,
+              style: AppTextStyle.s20w600,
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Text(
+              data.description,
+              style: AppTextStyle.s14w200,
+            ),
+          ],
+        ),
       ),
     );
   }
