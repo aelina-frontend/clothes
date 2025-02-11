@@ -5,6 +5,7 @@ import 'package:clothes/presentation/widgets/footer_widget.dart';
 import 'package:clothes/presentation/widgets/main_title.dart';
 import 'package:clothes/presentation/widgets/type_of_clothes.dart';
 import 'package:flutter/material.dart';
+import '../../data/social_media.dart';
 import '../widgets/main_banner.dart';
 import '../widgets/product_card.dart';
 
@@ -23,6 +24,7 @@ class TabletScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String selectedUrl = socialMedia[0].url;
     return CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
@@ -30,6 +32,7 @@ class TabletScreen extends StatelessWidget {
             children: [
               MainBanner(
                 key1: key1,
+                url: selectedUrl,
               ),
               const MainTitle(),
               const TypeOfClothes(),

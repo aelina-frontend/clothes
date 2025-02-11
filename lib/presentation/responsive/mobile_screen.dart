@@ -6,6 +6,7 @@ import 'package:clothes/presentation/widgets/product_card.dart';
 import 'package:clothes/presentation/widgets/type_of_clothes.dart';
 import 'package:flutter/material.dart';
 
+import '../../data/social_media.dart';
 import '../widgets/main_title.dart';
 
 class MobileScreen extends StatelessWidget {
@@ -23,6 +24,7 @@ class MobileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String selectedUrl = socialMedia[0].url;
     return CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
@@ -30,6 +32,7 @@ class MobileScreen extends StatelessWidget {
             children: [
               MainBanner(
                 key1: key1,
+                  url: selectedUrl
               ),
               const MainTitle(),
               const TypeOfClothes(),

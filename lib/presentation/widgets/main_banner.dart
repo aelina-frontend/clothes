@@ -4,19 +4,22 @@ import 'package:clothes/core/utils.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/app_colors.dart';
+import '../../core/app_constants/app_function.dart';
 import '../../core/app_text_style.dart';
 import 'button_widget.dart';
 
 class MainBanner extends StatelessWidget {
   final GlobalKey key1;
+  final String url;
   const MainBanner({
     super.key,
-  required this.key1,
+  required this.key1, required this.url,
   });
 
   @override
   Widget build(BuildContext context)
   {
+
     final device = getDevice(MediaQuery.of(context).size.width);
     return Stack(
       key: key1,
@@ -59,7 +62,9 @@ class MainBanner extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 10),
-                buttonWidget(isColor: true, isTextColor: true, text: AppString.contactMe),
+                buttonWidget(isColor: true, isTextColor: true, text: AppString.contactMe, onTap: (){
+                  AppFunctions.openSocialMedia(url);
+                }),
               ],
             ),
           ),

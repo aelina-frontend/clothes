@@ -14,7 +14,7 @@ class ProductDetailScreen extends StatefulWidget {
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   final PageController _pageController =
-      PageController(); // Контроллер для PageView
+      PageController(initialPage: 0); // Контроллер для PageView
 
   // Метод для выбора изображения
   void _selectedImage(int index) {
@@ -54,17 +54,20 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       ),
       body: device == DeviceSize.desktop || device == DeviceSize.tablet
           ? Row(
+              crossAxisAlignment:
+                  CrossAxisAlignment.start, // Выравниваем сверху
               children: [
+                _buildPageView(widget.clothes, device),
                 Expanded(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    // Выравниваем контент слева
                     children: [
-                      _buildPageView(widget.clothes, device),
-                      const SizedBox(height: 10),
+                      _text(widget.clothes),
                       _buildSmallImages(widget.clothes),
                     ],
                   ),
                 ),
-                _text(widget.clothes),
               ],
             )
           : _mobileDetail(),
@@ -73,12 +76,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
   Widget _buildPageView(Clothes data, DeviceSize device) {
     return SizedBox(
-      height: device == DeviceSize.desktop
-          ? 550
-          : (device == DeviceSize.tablet ? 500 : 250),
-      width: device == DeviceSize.desktop
-          ? 500
-          : (device == DeviceSize.tablet ? 450 : 200),
+      height: device == DeviceSize.desktop ? 550 : 500,
+      width: device == DeviceSize.desktop ? 500 : 450,
       child: Padding(
         padding: const EdgeInsets.only(left: 20),
         child: PageView.builder(
@@ -88,7 +87,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             return Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  fit: BoxFit.contain,
+                  fit: BoxFit.cover,
                   image: NetworkImage(data.images[index]),
                 ),
               ),
@@ -112,7 +111,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             icon: Icons.arrow_back_ios,
             onTap: _previousPage,
           ),
-        Spacer(),
+        const Spacer(),
         if (index <
             data.images.length -
                 1) // Отображаем кнопку вперед, если это не последняя страница
@@ -175,89 +174,54 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     return Column(
       children: [
         SizedBox(
-              height: 470,
-              child: PageView.builder(
-                controller: _pageController,
-                itemCount: widget.clothes.image.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(
-                          widget.clothes.images[index],
-                        ),
-                      ),
+          height: 470,
+          child: PageView.builder(
+            controller: _pageController,
+            itemCount: widget.clothes.image.length,
+            itemBuilder: (context, index) {
+              return Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(
+                      widget.clothes.images[index],
                     ),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: _buildPageNavigationButtons(index, widget.clothes),
-                    ),
-                  );
-                },
-              ),
-            ),
+                  ),
+                ),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: _buildPageNavigationButtons(index, widget.clothes),
+                ),
+              );
+            },
+          ),
+        ),
         _buildSmallImages(widget.clothes),
         _text(widget.clothes),
       ],
     );
   }
 
-  // Widget _mobileDetail() {
-  //   return CustomScrollView(
-  //     shrinkWrap: false,
-  //     scrollDirection: Axis.vertical,
-  //     slivers: [
-  //       SliverToBoxAdapter(
-  //         child: SizedBox(
-  //           height: 470,
-  //           child: PageView.builder(
-  //             controller: _pageController,
-  //             itemCount: widget.clothes.image.length,
-  //             itemBuilder: (context, index) {
-  //               return Container(
-  //                 decoration: BoxDecoration(
-  //                   image: DecorationImage(
-  //                     fit: BoxFit.cover,
-  //                     image: NetworkImage(
-  //                       widget.clothes.images[index],
-  //                     ),
-  //                   ),
-  //                 ),
-  //                 child: Align(
-  //                   alignment: Alignment.center,
-  //                   child: _buildPageNavigationButtons(index, widget.clothes),
-  //                 ),
-  //               );
-  //             },
-  //           ),
-  //         ),
-  //       ),
-  //       _buildSmallImages(widget.clothes),
-  //       SliverToBoxAdapter(child: _text(widget.clothes)),
-  //     ],
-  //   );
-  // }
-
   Widget _text(Clothes data) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
-        child: Column(
-          children: [
-            Text(
-              data.title,
-              style: AppTextStyle.s20w600,
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Text(
-              data.description,
-              style: AppTextStyle.s14w200,
-            ),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            data.title,
+            textAlign: TextAlign.start,
+            style: AppTextStyle.s20w600,
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Text(
+            data.description,
+            style: AppTextStyle.s14w200,
+          ),
+        ],
       ),
     );
   }

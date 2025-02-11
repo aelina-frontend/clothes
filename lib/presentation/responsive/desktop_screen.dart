@@ -1,3 +1,4 @@
+import 'package:clothes/data/social_media.dart';
 import 'package:clothes/presentation/widgets/about_us_widget.dart';
 import 'package:clothes/presentation/widgets/assortment_text.dart';
 import 'package:clothes/presentation/widgets/footer_widget.dart';
@@ -19,13 +20,14 @@ class DesktopScreen extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
+    final String selectedUrl = socialMedia[0].url;
     return CustomScrollView(
       shrinkWrap: false,
       slivers: [
         SliverToBoxAdapter(
           child: Column(
             children: [
-              MainBanner(key1: key1,),
+              MainBanner(key1: key1, url: selectedUrl),
               const MainTitle(),
               const TypeOfClothes(),
               AboutUsWidget(key2: key2,),
