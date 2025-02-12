@@ -14,7 +14,7 @@ class ProductDetailScreen extends StatefulWidget {
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   final PageController _pageController =
-      PageController(initialPage: 0); // Контроллер для PageView
+  PageController(initialPage: 0); // Контроллер для PageView
 
   // Метод для выбора изображения
   void _selectedImage(int index) {
@@ -43,7 +43,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final device = getDevice(MediaQuery.of(context).size.width);
+    final device = getDevice(MediaQuery
+        .of(context)
+        .size
+        .width);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -54,22 +57,22 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       ),
       body: device == DeviceSize.desktop || device == DeviceSize.tablet
           ? Row(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start, // Выравниваем сверху
+        crossAxisAlignment:
+        CrossAxisAlignment.start, // Выравниваем сверху
+        children: [
+          _buildPageView(widget.clothes, device),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              // Выравниваем контент слева
               children: [
-                _buildPageView(widget.clothes, device),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    // Выравниваем контент слева
-                    children: [
-                      _text(widget.clothes),
-                      _buildSmallImages(widget.clothes),
-                    ],
-                  ),
-                ),
+                _text(widget.clothes),
+                _buildSmallImages(widget.clothes),
               ],
-            )
+            ),
+          ),
+        ],
+      )
           : _mobileDetail(),
     );
   }
@@ -171,34 +174,36 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   }
 
   Widget _mobileDetail() {
-    return Column(
-      children: [
-        SizedBox(
-          height: 470,
-          child: PageView.builder(
-            controller: _pageController,
-            itemCount: widget.clothes.image.length,
-            itemBuilder: (context, index) {
-              return Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(
-                      widget.clothes.images[index],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          SizedBox(
+            height: 470,
+            child: PageView.builder(
+              controller: _pageController,
+              itemCount: widget.clothes.image.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(
+                        widget.clothes.images[index],
+                      ),
                     ),
                   ),
-                ),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: _buildPageNavigationButtons(index, widget.clothes),
-                ),
-              );
-            },
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: _buildPageNavigationButtons(index, widget.clothes),
+                  ),
+                );
+              },
+            ),
           ),
-        ),
-        _buildSmallImages(widget.clothes),
-        _text(widget.clothes),
-      ],
+          _buildSmallImages(widget.clothes),
+          _text(widget.clothes),
+        ],
+      ),
     );
   }
 
@@ -214,9 +219,19 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             textAlign: TextAlign.start,
             style: AppTextStyle.s20w600,
           ),
-          const SizedBox(
-            height: 15,
+          const SizedBox(height: 15,),
+          Text(
+            data.fabric,
+            textAlign: TextAlign.start,
+            style: AppTextStyle.s18w500,
           ),
+          // const SizedBox(height: 15,),
+          // Text(
+          //   data.size,
+          //   textAlign: TextAlign.start,
+          //   style: AppTextStyle.s18w500,
+          // ),
+          const SizedBox(height: 15,),
           Text(
             data.description,
             style: AppTextStyle.s14w200,
@@ -225,4 +240,5 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       ),
     );
   }
+
 }
